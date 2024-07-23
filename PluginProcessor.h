@@ -1,6 +1,9 @@
 #pragma once
 
 #include <juce_audio_processors/juce_audio_processors.h>
+#include "chebyshev.h"
+
+#define NUM_HARMONICS 128
 
 //==============================================================================
 class ChPolyProcessor final : public juce::AudioProcessor
@@ -42,6 +45,10 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    void randomize();
+
+    juce::OwnedArray<juce::AudioParameterFloat> harmonicparams;
+    std::unique_ptr<juce::AudioParameterFloat> gainparam;
 private:
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChPolyProcessor)
